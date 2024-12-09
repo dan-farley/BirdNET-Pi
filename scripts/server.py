@@ -175,19 +175,13 @@ def predict(sample, sensitivity):
     # Sort by score
     p_sorted = sorted(p_labels.items(), key=operator.itemgetter(1), reverse=True)
 
-#     # print("DATABASE SIZE:", len(p_sorted))
-#     # print("HUMAN-CUTOFF AT:", int(len(p_sorted)*priv_thresh)/10)
-#
-#     # Remove species that are on blacklist
+    # Remove species that are on blacklist
+#     for i in range(min(10, len(p_sorted))):
+#         if p_sorted[i][0] in ['Human_Human', 'Non-bird_Non-bird', 'Noise_Noise']:
+#             p_sorted[i] = (p_sorted[i][0], 0.0)
 
-    human_cutoff = max(10, int(len(p_sorted) * priv_thresh))
-
-    for i in range(min(10, len(p_sorted))):
-        if p_sorted[i][0] == 'Human_Human':
-            with open(userDir + '/BirdNET-Pi/HUMAN.txt', 'a') as rfile:
-                rfile.write(str(datetime.datetime.now()) + str(p_sorted[i]) + ' ' + str(human_cutoff) + '\n')
-
-    return p_sorted[:human_cutoff]
+    # Only return first the top ten results
+    return p_sorted[:10]
 
 
 def analyzeAudioData(chunks, lat, lon, week, sensitivity, overlap,):

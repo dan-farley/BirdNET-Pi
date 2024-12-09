@@ -187,11 +187,11 @@ function loadDetectionIfNewExists() {
       } else {
         applyText(split[i].split(",")[1],x, ((document.body.querySelector('canvas').height * 0.50) + add ), split[i].split(",")[2])
       }
-  
+
 
           lastbird = split[i].split(",")[1]
         }
-        
+
       }
     }
   }
